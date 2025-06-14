@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>パスワード認証</title>
+</head>
+<body>
+  <h2>限定アクセスページ</h2>
+  <p>パスワードを入力してください：</p>
+  <input type="password" id="pw">
+  <button onclick="checkPassword()">送信</button>
+  <p id="error" style="color:red;"></p>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("pw").value;
+      const correct = "abc123";  // ←ここを好きなパスワードに
+      if (input === correct) {
+        window.location.href = "https://案件のURL.com";
+      } else {
+        document.getElementById("error").innerText = "パスワードが違います。";
+      }
+    }
+  </script>
+</body>
+</html>
