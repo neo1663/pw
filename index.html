@@ -2,21 +2,36 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>パスワード認証</title>
+  <title>限定無料情報のご案内</title>
 </head>
 <body>
-  <h2>限定アクセスページ</h2>
-  <p>パスワードを入力してください：</p>
-  <input type="password" id="pw">
+  <h2>限定無料情報のご案内</h2>
+
+  <p>このページは、限定キャンペーンの案内ページです。</p>
+  <p>以下は一般向けの紹介ページになります。</p>
+
+  <!-- 通常案内エリア -->
+  <div style="margin-top:20px; padding:10px; border:1px solid #ccc;">
+    <h3>【一般向けのご案内】</h3>
+    <p>最新キャンペーンやお得な無料情報を以下からご覧いただけます。</p>
+    <a href="https://gift-lab.site/x/yJjCG" target="_blank">▶ 一般案内ページを見る</a>
+  </div>
+
+  <hr style="margin:30px 0;">
+
+  <!-- パスワード入力エリア -->
+  <h3>【限定無料情報へアクセスする方はこちら】</h3>
+  <p>投稿を見てパスワードを知っている方は、以下に入力してください。</p>
+  <input type="password" id="pw" placeholder="パスワードを入力">
   <button onclick="checkPassword()">送信</button>
   <p id="error" style="color:red;"></p>
 
   <script>
     function checkPassword() {
       const input = document.getElementById("pw").value;
-      const correct = "abc123";  // ←ここを好きなパスワードに
+      const correct = "abc123"; // 投稿で伝えるパスワード
       if (input === correct) {
-        window.location.href = "https://案件のURL.com";
+        window.location.href = "https://gift-lab.site/x/money";
       } else {
         document.getElementById("error").innerText = "パスワードが違います。";
       }
