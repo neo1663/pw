@@ -1,0 +1,29 @@
+# サンプル設定ファイル
+# 実際に使用する際は値を変更し、config.yaml などにリネームしてください。
+
+storage:
+  directory: state
+
+default_follow_delay_seconds: 2.5
+default_like_delay_seconds: 2.5
+
+accounts:
+  - handle: example-account.bsky.social
+    app_password: abcd-1234-efgh-5678
+    service: https://bsky.social
+    proxy: http://user:pass@127.0.0.1:8888
+    follow_delay_seconds: 3.0
+    like_delay_seconds: 4.0
+    new_followers_page_size: 50
+    follow_targets:
+      - handle: target-account.bsky.social
+        follow_limit: 25
+        like_latest_post: true
+        like_limit: 20
+    dm:
+      enabled: true
+      message: |
+        こんにちは {displayName} さん！フォローありがとうございます。
+        こちらからもぜひ交流させてください。
+      limit_per_run: 10
+      cooldown_hours: 0
