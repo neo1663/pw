@@ -2,32 +2,67 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リンク集</title>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:title" content="リンク集">
+  <meta property="og:description" content="各種リンクはこちら">
+  <meta property="og:image" content="https://example.com/preview.png">
+  <style>
+    body { margin:0; font-family: sans-serif; text-align:center; }
+    .header { padding:40px 20px 20px; }
+    .links { max-width:480px; margin:0 auto 40px; }
+    .link-btn { display:flex; align-items:center; gap:10px; justify-content:center; margin:12px 20px; padding:14px 20px; text-decoration:none; transition:opacity .2s; }
+    .link-btn:hover { opacity:0.8; }
+    .link-btn img { width:32px; height:32px; border-radius:50%; }
+  </style>
 </head>
 <body>
-  <!-- 通常案内エリア -->
-  <div style="margin-top:20px; padding:10px; border:1px solid #ccc;">
-    <h3>【最新キャンペーンやお得な無料情報】</h3>
-  <a href="https://gift-lab.site/x/yJjCG" target="_blank">▶ こちら</a>
+  <div class="header">
+    <h1 id="title"></h1>
+    <p id="desc"></p>
   </div>
-
-  <hr style="margin:30px 0;">
-
-  <!-- パスワード入力エリア -->
-  <h3>【限定無料情報】</h3>
-  <input type="password" id="pw" placeholder="パスワードを入力">
-  <button onclick="checkPassword()">送信</button>
-  <p id="error" style="color:red;"></p>
-
+  <div class="links" id="links"></div>
   <script>
-    function checkPassword() {
-      const input = document.getElementById("pw").value;
-      const correct = "abc123"; // 投稿で伝えるパスワード
-      if (input === correct) {
-        window.location.href = "https://gift-lab.site/x/money";
-      } else {
-        document.getElementById("error").innerText = "パスワードが違います。";
+    function decodeConfig(hash) {
+      if (!hash) return null;
+      try {
+        const json = decodeURIComponent(escape(window.atob(hash)));
+        return JSON.parse(json);
+      } catch (e) {
+        console.error(e);
+        return null;
       }
     }
+    function render(cfg) {
+      cfg = cfg || { title: 'リンク集', description: '', background: 'linear-gradient(135deg,#FFDEE9,#B5FFFC)', button: { background: '#fff', color: '#333', radius: 12 }, links: [] };
+      document.getElementById('title').textContent = cfg.title;
+      document.getElementById('desc').textContent = cfg.description;
+      if (cfg.background) document.body.style.background = cfg.background;
+      const linksDiv = document.getElementById('links');
+      (cfg.links || []).forEach(l => {
+        const a = document.createElement('a');
+        a.href = l.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer nofollow';
+        a.className = 'link-btn';
+        a.style.background = (cfg.button && cfg.button.background) || '#fff';
+        a.style.color = (cfg.button && cfg.button.color) || '#333';
+        a.style.borderRadius = ((cfg.button && cfg.button.radius) || 12) + 'px';
+        if (l.icon) {
+          const img = document.createElement('img');
+          img.src = l.icon;
+          img.alt = '';
+          a.appendChild(img);
+        }
+        const span = document.createElement('span');
+        span.textContent = l.label || l.url;
+        a.appendChild(span);
+        linksDiv.appendChild(a);
+      });
+    }
+    const cfg = decodeConfig(location.hash.slice(1));
+    render(cfg);
   </script>
 </body>
 </html>
